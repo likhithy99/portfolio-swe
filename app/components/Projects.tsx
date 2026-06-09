@@ -62,7 +62,7 @@ const projects: Project[] = [
       {
         label: "alerting",
         content:
-          'Four alert rules — high CPU, high memory, instance down, and high error rate — with a stress-test demo that triggers alerts on demand to show the full pipeline firing.',
+          "Four alert rules — high CPU, high memory, instance down, and high error rate — with a stress-test demo that triggers alerts on demand to show the full pipeline firing.",
       },
       {
         label: "key_design_decisions",
@@ -73,6 +73,61 @@ const projects: Project[] = [
   },
   {
     id: "02",
+    layer: "Deployment Pipeline",
+    title: "End-to-End Deployment Pipeline",
+    shortDescription:
+      "A multi-service containerized app provisioned with Terraform, configured with Ansible, and deployed through a CI/CD pipeline.",
+    status: "completed",
+    tags: [
+      "Docker",
+      "Docker Compose",
+      "Terraform",
+      "Ansible",
+      "GitHub Actions",
+      "Nginx",
+      "Node.js",
+      "MongoDB",
+      "Redis",
+      "CI/CD",
+    ],
+    github: "https://github.com/likhithy99/multi-service-pipeline",
+    screenshots: [],
+    modalPath: "~/projects/pipeline",
+    detail: [
+      {
+        label: "overview",
+        content:
+          "An end-to-end DevOps pipeline that takes a multi-service application from source code to a running deployment on a provisioned server, with infrastructure and configuration fully automated as code. Built to be cloud-portable — the same automation targets a local VM for demonstration and a cloud provider with minimal changes.",
+      },
+      {
+        label: "the_application",
+        content:
+          "A todo application split into five containerized services orchestrated with Docker Compose — a React (Vite) frontend, a Node.js/Express REST API, MongoDB for persistence, Redis for response caching, and an Nginx reverse proxy exposing a single entry point. The API caches GET responses in Redis and invalidates the cache on writes. Docker best practices throughout: multi-stage builds to shrink image size, custom networks, named volumes for persistence, health checks, and environment-based config.",
+      },
+      {
+        label: "terraform",
+        content:
+          "Terraform provisions an Ubuntu server and injects an SSH key via cloud-init, outputting the server IP for downstream automation. The provider is swappable — the same configuration maps to AWS EC2, DigitalOcean, or GCP by changing only the resource block, leaving everything else untouched.",
+      },
+      {
+        label: "ansible",
+        content:
+          "A role-based Ansible playbook configures the provisioned server over SSH: a base role (system updates, utilities, fail2ban hardening), a docker role (installs Docker Engine and the Compose plugin via the official apt repository, architecture-aware for both arm64 and amd64 hosts), and an app role (syncs the project and brings up the Compose stack). Roles are tagged for selective runs.",
+      },
+      {
+        label: "ci_cd",
+        content:
+          "Two workflows. CI runs on every push and PR — builds the frontend and API images, starts the full stack, and runs CRUD smoke tests against the API, failing the build on any error. CD runs on push to main — deploys the latest code to the server over SSH using secrets, rebuilds changed images, and health-checks the live endpoint.",
+      },
+      {
+        label: "key_design_decisions",
+        content:
+          'Multi-stage Docker builds keep the final frontend image small by discarding build tooling. Redis caching with write-invalidation reduces database load on read-heavy endpoints. Infrastructure and configuration are both code — the entire environment is reproducible and version-controlled. The deployment is cloud-portable by design: provider-specific code is isolated to a single Terraform block.\n\nVerified end to end: Terraform provisioned the VM, Ansible configured it and deployed the stack, and the application served live traffic on the provisioned server.',
+      },
+    ],
+  },
+  {
+    id: "03",
     layer: "Containerization",
     title: "Multi-Service Containerized Application",
     shortDescription:
@@ -103,7 +158,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: "03",
+    id: "04",
     layer: "Infrastructure as Code",
     title: "Cloud Server Provisioning with Terraform & Ansible",
     shortDescription:
@@ -127,7 +182,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: "04",
+    id: "05",
     layer: "CI/CD",
     title: "Automated Deployment Pipeline with GitHub Actions",
     shortDescription:
