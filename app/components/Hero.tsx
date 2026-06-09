@@ -151,6 +151,24 @@ export default function Hero() {
               >
                 // get in touch
               </a>
+              <a
+                href="https://drive.google.com/file/d/12JWA7mUdDsblbMG_6XZqPGgFpKu1TWn_/view?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-sm px-6 py-3 rounded transition-all duration-200"
+                style={{
+                  border: "1px solid rgba(0, 212, 170, 0.35)",
+                  color: "var(--accent)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.background = "rgba(0, 212, 170, 0.08)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.background = "transparent";
+                }}
+              >
+                $ resume ↗
+              </a>
             </div>
           </div>
 

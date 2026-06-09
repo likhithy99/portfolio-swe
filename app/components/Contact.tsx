@@ -210,6 +210,59 @@ export default function Contact() {
                 </div>
                 <ArrowIcon />
               </a>
+
+              {/* Resume */}
+              <a
+                href="https://drive.google.com/file/d/12JWA7mUdDsblbMG_6XZqPGgFpKu1TWn_/view?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-5 rounded-xl card-hover"
+                style={{
+                  border: "1px solid var(--border)",
+                  background: "var(--bg-card)",
+                  textDecoration: "none",
+                }}
+              >
+                <div className="flex items-center gap-4">
+                  <div
+                    className="w-10 h-10 rounded-lg flex items-center justify-center"
+                    style={{ background: "rgba(0, 212, 170, 0.12)" }}
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ color: "var(--accent)" }}
+                    >
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="16" y1="13" x2="8" y2="13" />
+                      <line x1="16" y1="17" x2="8" y2="17" />
+                      <line x1="10" y1="9" x2="8" y2="9" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div
+                      className="text-sm font-medium"
+                      style={{ color: "var(--text-primary)" }}
+                    >
+                      Resume
+                    </div>
+                    <div
+                      className="font-mono text-xs mt-0.5"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
+                      $ cat resume.pdf
+                    </div>
+                  </div>
+                </div>
+                <ArrowIcon />
+              </a>
             </div>
           </div>
 
