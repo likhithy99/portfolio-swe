@@ -128,6 +128,66 @@ const projects: Project[] = [
   },
   {
     id: "03",
+    layer: "Orchestration",
+    title: "Kubernetes Deployment with Helm",
+    shortDescription:
+      "A multi-service application deployed to a Kubernetes cluster with raw manifests, then packaged as a Helm chart with ingress, persistence, and health probes.",
+    status: "completed",
+    tags: [
+      "Kubernetes",
+      "Helm",
+      "kind",
+      "Docker",
+      "Ingress",
+      "NGINX",
+      "kubectl",
+      "MongoDB",
+      "Redis",
+      "Node.js",
+    ],
+    github: "https://github.com/likhithy99/kubernetes-deployment",
+    screenshots: [],
+    modalPath: "~/projects/kubernetes",
+    detail: [
+      {
+        label: "overview",
+        content:
+          "A multi-service application deployed to Kubernetes, demonstrating the full path from container images to a running, ingress-exposed workload. Built first with raw Kubernetes manifests, then packaged as a Helm chart for reproducible, configurable, single-command deployments.",
+      },
+      {
+        label: "the_application",
+        content:
+          "A full-stack todo app — React (Vite) frontend, Node.js/Express API, MongoDB for persistence, and Redis for caching — each running as its own Deployment in the cluster.",
+      },
+      {
+        label: "cluster_&_k8s_objects",
+        content:
+          "Provisioned a multi-node cluster (control-plane + worker) locally with kind. Authored the core Kubernetes objects: Deployments and Services for each component, a ConfigMap for API configuration, a Secret for sensitive values, and a PersistentVolumeClaim so MongoDB data survives pod restarts. Locally built images are loaded directly into the cluster (kind load) and consumed with imagePullPolicy Never, avoiding a registry.",
+      },
+      {
+        label: "networking_&_ingress",
+        content:
+          "Installed the NGINX ingress controller and configured an Ingress that routes / to the frontend and /api to the API through a single host, mirroring how external traffic reaches services in a real cluster.",
+      },
+      {
+        label: "reliability",
+        content:
+          "Each service defines readiness and liveness probes. When the API starts before MongoDB is ready, it fails its probe, Kubernetes restarts it automatically, and it recovers once the database is available — a concrete demonstration of self-healing.",
+      },
+      {
+        label: "helm_packaging",
+        content:
+          "Converted the raw manifests into a Helm chart: a values.yaml exposing image tags, replica counts, resource limits, ingress host, and storage size; a _helpers.tpl for consistent labels and release-prefixed names; and templated manifests for every component. Helm resolves the resource-ordering and namespace-creation issues that affect a plain kubectl apply, and enables versioned releases, one-command installs, upgrades, rollbacks, and value overrides.",
+      },
+      {
+        label: "key_design_decisions",
+        content:
+          "Started with raw manifests to work directly with core Kubernetes primitives, then adopted Helm for reproducibility and lifecycle management. ConfigMap/Secret separation keeps configuration out of images. PersistentVolumeClaim ensures stateful data survives pod rescheduling. Ingress provides a single, clean entry point instead of exposing each service.\n\nVerified end to end: all pods reach a healthy running state and the application serves live traffic through the ingress, deployed via a single Helm release.",
+      },
+    ],
+  },
+  {
+    id: "04",
     layer: "Containerization",
     title: "Multi-Service Containerized Application",
     shortDescription:
@@ -158,7 +218,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: "04",
+    id: "05",
     layer: "Infrastructure as Code",
     title: "Cloud Server Provisioning with Terraform & Ansible",
     shortDescription:
@@ -182,7 +242,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: "05",
+    id: "06",
     layer: "CI/CD",
     title: "Automated Deployment Pipeline with GitHub Actions",
     shortDescription:
@@ -221,50 +281,6 @@ function GitHubIcon({ size = 14 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
     </svg>
-  );
-}
-
-// ─── Status badge (shared between card + modal) ───────────────────────────────
-
-function StatusBadge({ status }: { status: Project["status"] }) {
-  if (status === "completed") {
-    return (
-      <div className="flex items-center gap-1.5 shrink-0">
-        <span
-          className="inline-flex rounded-full h-2 w-2"
-          style={{ background: "#22c55e", marginTop: "1px" }}
-        />
-        <span
-          className="font-mono text-xs font-medium"
-          style={{ color: "#22c55e" }}
-        >
-          COMPLETED
-        </span>
-      </div>
-    );
-  }
-  return (
-    <div className="flex items-center gap-1.5 shrink-0">
-      <span
-        className="relative flex h-2 w-2 shrink-0"
-        style={{ marginTop: "1px" }}
-      >
-        <span
-          className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-          style={{ background: "#f59e0b" }}
-        />
-        <span
-          className="relative inline-flex rounded-full h-2 w-2"
-          style={{ background: "#f59e0b" }}
-        />
-      </span>
-      <span
-        className="font-mono text-xs font-medium"
-        style={{ color: "#f59e0b" }}
-      >
-        IN PROGRESS
-      </span>
-    </div>
   );
 }
 
@@ -411,17 +427,12 @@ function ProjectModal({
               // {project.layer}
             </span>
           </div>
-          <div className="flex items-start justify-between gap-4 mb-6">
-            <h2
-              className="font-mono font-semibold text-lg leading-snug"
-              style={{ color: "var(--text-primary)" }}
-            >
-              {project.title}
-            </h2>
-            <div className="shrink-0 mt-0.5">
-              <StatusBadge status={project.status} />
-            </div>
-          </div>
+          <h2
+            className="font-mono font-semibold text-lg leading-snug mb-6"
+            style={{ color: "var(--text-primary)" }}
+          >
+            {project.title}
+          </h2>
 
           {/* Screenshots */}
           {hasScreenshots && (
@@ -651,23 +662,20 @@ export default function Projects() {
                   }
                 }}
               >
-                {/* Top row: id + layer + status */}
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="font-mono text-xs"
-                      style={{ color: "var(--text-muted)" }}
-                    >
-                      {project.id}
-                    </span>
-                    <span
-                      className="font-mono text-xs"
-                      style={{ color: "var(--accent)" }}
-                    >
-                      // {project.layer}
-                    </span>
-                  </div>
-                  <StatusBadge status={project.status} />
+                {/* Top row: id + layer */}
+                <div className="flex items-center gap-3 mb-4">
+                  <span
+                    className="font-mono text-xs"
+                    style={{ color: "var(--text-muted)" }}
+                  >
+                    {project.id}
+                  </span>
+                  <span
+                    className="font-mono text-xs"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    // {project.layer}
+                  </span>
                 </div>
 
                 {/* Title */}
