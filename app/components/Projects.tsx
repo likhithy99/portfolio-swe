@@ -241,87 +241,51 @@ const projects: Project[] = [
   },
   {
     id: "05",
-    layer: "Containerization",
-    title: "Multi-Service Containerized Application",
+    layer: "AI / MLOps",
+    title: "RAG LLM Platform",
     shortDescription:
-      "React, Node.js/Express, MongoDB, and Redis behind Nginx — containerized with Docker Compose using multi-stage builds and production-grade practices.",
+      "A retrieval-augmented generation service using a local LLM — FastAPI, sentence-transformers, ChromaDB, and Ollama — designed for containerized deployment on Kubernetes. In progress.",
     status: "in-progress",
     tags: [
+      "RAG",
+      "LLM",
+      "FastAPI",
+      "ChromaDB",
+      "sentence-transformers",
+      "Ollama",
+      "Prometheus",
+      "Python",
+      "Kubernetes",
       "Docker",
-      "Docker Compose",
-      "Multi-stage Builds",
-      "Redis",
-      "Nginx",
-      "Health Checks",
     ],
-    github: null,
+    github: "https://github.com/likhithy99/rag-llm-platform",
     screenshots: [],
-    modalPath: "~/projects/docker-app",
+    modalPath: "~/projects/rag-llm-platform",
     detail: [
       {
         label: "overview",
         content:
-          "A multi-service app built with Docker best practices — React frontend, Node.js/Express API, MongoDB, and Redis cache behind an Nginx reverse proxy.",
+          "A retrieval-augmented generation (RAG) service that answers natural-language questions over a document corpus using a locally hosted large language model, returning answers grounded in retrieved source passages. RAG combines a retrieval step (finding the most relevant pieces of a knowledge base) with a generation step (an LLM composing an answer from that context), which keeps responses grounded in real documents and reduces hallucination by citing the sources used.",
       },
       {
-        label: "what_it_does",
+        label: "how_it_works",
         content:
-          "Orchestrated with Docker Compose using multi-stage builds, custom networks, named volumes, Docker secrets, and per-service health checks.",
-      },
-    ],
-  },
-  {
-    id: "06",
-    layer: "Infrastructure as Code",
-    title: "Cloud Server Provisioning with Terraform & Ansible",
-    shortDescription:
-      "Automated provisioning from zero — Terraform stands up servers, Ansible handles hardening and app deployment via tagged, role-based playbooks.",
-    status: "in-progress",
-    tags: ["Terraform", "Ansible", "Linux", "IaC", "fail2ban", "SSH"],
-    github: null,
-    screenshots: [],
-    modalPath: "~/projects/iac",
-    detail: [
-      {
-        label: "overview",
-        content:
-          "Automated infrastructure setup from zero. Terraform provisions cloud servers; role-based Ansible playbooks handle base hardening, Nginx, app deployment, and SSH key provisioning.",
+          "The service ingests text documents and splits them into overlapping chunks (500-character chunks with 50-character overlap, broken at sentence boundaries to preserve meaning). Each chunk is converted into a 384-dimensional embedding using the sentence-transformers all-MiniLM-L6-v2 model and stored in a ChromaDB vector database. At query time, the question is embedded, the most similar chunks are retrieved by vector similarity, and those chunks are assembled into a prompt that is sent to a local LLM (llama3.2 served via Ollama) to generate an answer along with the source chunks used as citations.",
       },
       {
-        label: "what_it_does",
+        label: "design_choices",
         content:
-          "Tagged roles enable selective runs — apply only the security hardening role, or only the app deployment role, without touching unrelated server state.",
-      },
-    ],
-  },
-  {
-    id: "07",
-    layer: "CI/CD",
-    title: "Automated Deployment Pipeline with GitHub Actions",
-    shortDescription:
-      "Zero-touch CI/CD — every push builds, tests, injects secrets, and deploys to a remote server over SSH.",
-    status: "in-progress",
-    tags: [
-      "GitHub Actions",
-      "CI/CD",
-      "Node.js",
-      "SSH",
-      "Secrets",
-      "Automation",
-    ],
-    github: null,
-    screenshots: [],
-    modalPath: "~/projects/cicd",
-    detail: [
-      {
-        label: "overview",
-        content:
-          "A CI/CD pipeline that deploys a Node.js service to a remote server on every push. GitHub Actions handles build, test, secrets injection, and SSH-based deployment.",
+          "Local LLM via Ollama instead of a hosted API, so the system runs fully offline with no per-token cost and no data leaving the machine — relevant for privacy-sensitive or on-premise use cases. sentence-transformers all-MiniLM-L6-v2 embeddings: small, fast, CPU-friendly, and a strong quality-to-size tradeoff. ChromaDB as a local persistent vector store for similarity search. Citations returned with every answer to make responses auditable and mitigate hallucination. A Prometheus /metrics endpoint planned for request-rate and latency monitoring.",
       },
       {
-        label: "what_it_does",
+        label: "intended_deployment",
         content:
-          "Builds on the Terraform and Ansible automation to deliver zero-touch releases — infrastructure provisioned, configured, and deployed from a single git push.",
+          "The service is being built for containerized deployment on Kubernetes: a Docker image for the FastAPI app, Kubernetes Deployment/Service/Ingress, a Horizontal Pod Autoscaler to scale replicas under load, and Prometheus-based monitoring — tying together AI inference, cloud-native deployment, and observability.",
+      },
+      {
+        label: "status",
+        content:
+          "Work in progress. The retrieval and generation pipeline is implemented; the serving, containerization, and Kubernetes deployment layers are under active development.",
       },
     ],
   },
