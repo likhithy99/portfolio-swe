@@ -188,6 +188,59 @@ const projects: Project[] = [
   },
   {
     id: "04",
+    layer: "GitOps",
+    title: "GitOps Continuous Delivery with ArgoCD",
+    shortDescription:
+      "A Kubernetes cluster continuously synced from Git using ArgoCD — declarative deployment, automated self-healing, and drift detection.",
+    status: "completed",
+    tags: [
+      "ArgoCD",
+      "GitOps",
+      "Kubernetes",
+      "kind",
+      "Continuous Delivery",
+      "kubectl",
+      "YAML",
+      "Git",
+    ],
+    github: "https://github.com/likhithy99/gitops-argocd",
+    screenshots: [
+      "/argocd-application.png",
+      "/argocd-tree.png",
+      "/argocd-autosync.png",
+    ],
+    screenshotLabels: ["application", "resource tree", "auto-sync"],
+    modalPath: "~/projects/gitops",
+    detail: [
+      {
+        label: "overview",
+        content:
+          "A GitOps continuous-delivery setup where ArgoCD watches a Git repository and automatically synchronizes a Kubernetes cluster to match the declared state. Git is the single source of truth: every change flows through version control, and the cluster continuously reconciles itself to match.",
+      },
+      {
+        label: "how_it_works",
+        content:
+          "ArgoCD runs inside a kind Kubernetes cluster, configured with an Application pointing at a Git repository path containing the app manifests. Automated sync is enabled with self-heal and prune, so ArgoCD deploys changes from Git automatically and corrects any drift between live and declared state.",
+      },
+      {
+        label: "demonstrated_behavior",
+        content:
+          "Declarative deployment — applying the ArgoCD Application caused ArgoCD to deploy the app directly from Git with no manual kubectl apply. Self-healing — manually scaling the live deployment was automatically reverted to match the replica count in Git. Auto-sync — committing and pushing a manifest change caused ArgoCD to detect the new revision and roll out the change automatically.",
+      },
+      {
+        label: "key_concepts",
+        content:
+          "Git as the single source of truth for cluster state. Continuous reconciliation between declared and live state. Automated sync, self-heal, and prune for hands-off, auditable deployments. Easy rollback by reverting a commit.",
+      },
+      {
+        label: "why_it_matters",
+        content:
+          "GitOps is the standard modern delivery workflow for Kubernetes — deployments become auditable, reproducible, and self-correcting, with full history in Git.",
+      },
+    ],
+  },
+  {
+    id: "05",
     layer: "Containerization",
     title: "Multi-Service Containerized Application",
     shortDescription:
@@ -218,7 +271,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: "05",
+    id: "06",
     layer: "Infrastructure as Code",
     title: "Cloud Server Provisioning with Terraform & Ansible",
     shortDescription:
@@ -242,7 +295,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: "06",
+    id: "07",
     layer: "CI/CD",
     title: "Automated Deployment Pipeline with GitHub Actions",
     shortDescription:
