@@ -4,9 +4,12 @@ import { useState, useEffect, useCallback } from "react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+type LatencyBar = { label: string; value: number };
+
 type DetailSection = {
   label: string;
   content: string;
+  latencyChart?: LatencyBar[];
 };
 
 type Project = {
@@ -289,6 +292,63 @@ const projects: Project[] = [
       },
     ],
   },
+  {
+    id: "06",
+    layer: "Backend / gRPC",
+    title: "GateKeeper — gRPC Gateway with Custom Load Balancing",
+    shortDescription:
+      "A Go gRPC gateway load-balancing requests across multiple backends with custom round-robin and least-connections strategies, connection pooling, automatic failover, and Prometheus metrics.",
+    status: "completed",
+    tags: [
+      "Go",
+      "gRPC",
+      "Protocol Buffers",
+      "Load Balancing",
+      "Prometheus",
+      "Concurrency",
+      "ghz",
+    ],
+    github: "https://github.com/likhithy99/gatekeeper",
+    screenshots: [],
+    modalPath: "~/projects/gatekeeper",
+    detail: [
+      {
+        label: "overview",
+        content:
+          "GateKeeper is a Go gRPC gateway that sits in front of multiple backend services and distributes incoming requests across them using pluggable load-balancing strategies. It implements application-level (L7) load balancing directly in Go rather than relying on an external load balancer.",
+      },
+      {
+        label: "architecture",
+        content:
+          "Clients send gRPC requests to the gateway, which maintains a persistent gRPC connection pool to each backend (created at startup, not per request), selects a backend by the configured strategy, forwards the request, and returns the response. If a backend is unavailable, the gateway automatically fails over to the next healthy backend.",
+      },
+      {
+        label: "load_balancing",
+        content:
+          "Two strategies behind a common interface, selectable at runtime — round-robin (lock-free atomic counter for even distribution) and least-connections (routes to the backend with the fewest in-flight requests). Automatic failover retries the next backend on connection errors.",
+      },
+      {
+        label: "observability",
+        content:
+          "Instrumented with Prometheus metrics: total requests (labeled by backend, result, strategy), a request-duration histogram (enabling P50/P95/P99), in-flight gauges per backend, and a failover counter, all exposed on a /metrics endpoint.",
+      },
+      {
+        label: "performance",
+        content:
+          "Measured locally with ghz — 50 concurrent workers, 10,000 requests, across 3 backends, zero errors. Throughput: ~21,877 req/sec.",
+        latencyChart: [
+          { label: "P50", value: 1.55 },
+          { label: "P95", value: 3.48 },
+          { label: "P99", value: 6.37 },
+        ],
+      },
+      {
+        label: "tech",
+        content:
+          "Go, gRPC, Protocol Buffers, prometheus/client_golang, ghz, structured logging with slog.",
+      },
+    ],
+  },
 ];
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -319,6 +379,69 @@ function TagList({ tags }: { tags: string[] }) {
           {tag}
         </span>
       ))}
+    </div>
+  );
+}
+
+// ─── Latency bar chart (CSS only, no external lib) ───────────────────────────
+
+function LatencyChart({ bars }: { bars: LatencyBar[] }) {
+  const max = Math.max(...bars.map((b) => b.value));
+  const chartPx = 80;
+
+  return (
+    <div
+      className="mt-3 rounded-lg px-6 pt-5 pb-4"
+      style={{
+        background: "rgba(0, 0, 0, 0.25)",
+        border: "1px solid var(--border-subtle)",
+      }}
+    >
+      <div
+        className="flex items-end justify-center gap-10"
+        style={{ height: `${chartPx + 44}px` }}
+      >
+        {bars.map((bar) => {
+          const barH = Math.max(4, Math.round((bar.value / max) * chartPx));
+          return (
+            <div key={bar.label} className="flex flex-col items-center gap-2">
+              <span
+                className="font-mono text-xs"
+                style={{ color: "var(--accent)" }}
+              >
+                {bar.value} ms
+              </span>
+              <div
+                style={{
+                  width: "44px",
+                  height: `${barH}px`,
+                  background:
+                    "linear-gradient(to top, rgba(0,212,170,0.85), rgba(0,212,170,0.25))",
+                  borderRadius: "3px 3px 0 0",
+                  border: "1px solid rgba(0,212,170,0.35)",
+                  borderBottom: "none",
+                }}
+              />
+              <span
+                className="font-mono text-xs"
+                style={{ color: "var(--text-muted)" }}
+              >
+                {bar.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      <div
+        className="mt-1 h-px"
+        style={{ background: "rgba(0,212,170,0.2)" }}
+      />
+      <p
+        className="mt-2 font-mono text-xs text-center"
+        style={{ color: "var(--text-muted)" }}
+      >
+        latency (ms) · measured locally with ghz
+      </p>
     </div>
   );
 }
@@ -556,6 +679,9 @@ function ProjectModal({
                 >
                   {section.content}
                 </p>
+                {section.latencyChart && (
+                  <LatencyChart bars={section.latencyChart} />
+                )}
               </div>
             ))}
           </div>
