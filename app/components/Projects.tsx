@@ -349,6 +349,59 @@ const projects: Project[] = [
       },
     ],
   },
+  {
+    id: "07",
+    layer: "Data Engineering",
+    title: "Kafka Streaming ETL Pipeline",
+    shortDescription:
+      "A microservices streaming ETL pipeline on Kafka — event producer, windowed-aggregation processor, and idempotent PostgreSQL sink — with tumbling windows, watermarks, and late-event handling.",
+    status: "completed",
+    tags: [
+      "Kafka",
+      "Python",
+      "PostgreSQL",
+      "Stream Processing",
+      "ETL",
+      "Microservices",
+      "Docker",
+      "Event-Driven",
+    ],
+    github: "https://github.com/likhithy99/kafka-streaming-etl",
+    screenshots: [],
+    modalPath: "~/projects/kafka-streaming-etl",
+    detail: [
+      {
+        label: "overview",
+        content:
+          "A real-time streaming ETL pipeline built as independent microservices that communicate exclusively through Kafka topics. It ingests a continuous stream of order events, aggregates them over time windows, and persists the results to a PostgreSQL warehouse — demonstrating the full extract, transform, load flow for streaming data.",
+      },
+      {
+        label: "architecture",
+        content:
+          'Four decoupled services connected only through Kafka (no direct service-to-service calls): a producer that publishes simulated e-commerce order events to an "orders" topic; a processor that consumes orders and performs windowed aggregation, publishing results to an "order-aggregates" topic; and a sink that consumes aggregates and writes them to PostgreSQL. Kafka runs in KRaft mode (no Zookeeper). Each service has its own Dockerfile and is independently deployable.',
+      },
+      {
+        label: "stream_processing",
+        content:
+          "The processor computes tumbling time windows keyed by product, calculating total revenue, order count, and average order value per window. It advances a watermark based on event time and only emits a window once the watermark passes the window's end plus a grace period, allowing slightly late events to still be included. Events arriving after their window has closed are detected and handled as late data.",
+      },
+      {
+        label: "reliability",
+        content:
+          "The sink uses manual Kafka offset commits — the offset only advances after a successful database write — combined with idempotent UPSERTs keyed on (window_start, product). Kafka's at-least-once delivery can re-deliver messages after a crash, but because writes are idempotent the database converges to the same correct state with no duplicates. Connection retries let the sink survive startup races without hard service dependencies.",
+      },
+      {
+        label: "tech",
+        content:
+          "Kafka (KRaft), Python, confluent-kafka client, PostgreSQL, psycopg2, Docker Compose. Structured as independent, containerizable microservices.",
+      },
+      {
+        label: "note",
+        content:
+          "Built and verified locally with Docker Compose; the architecture is the same decoupled, independently-scalable pattern used in production streaming systems.",
+      },
+    ],
+  },
 ];
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
