@@ -402,6 +402,69 @@ const projects: Project[] = [
       },
     ],
   },
+  {
+    id: "08",
+    layer: "Data Engineering",
+    title: "Airflow Batch ETL Pipeline",
+    shortDescription:
+      "A production-shaped Airflow batch ETL pipeline using the medallion architecture — extracting live market data into raw, staging, and marts layers in PostgreSQL with incremental loads, data-quality gates, and unit tests.",
+    status: "completed",
+    tags: [
+      "Airflow",
+      "Python",
+      "PostgreSQL",
+      "ETL",
+      "Data Quality",
+      "Medallion Architecture",
+      "pandas",
+      "Docker",
+    ],
+    github: "https://github.com/likhithy99/airflow-batch-etl",
+    screenshots: [],
+    modalPath: "~/projects/airflow-batch-etl",
+    detail: [
+      {
+        label: "overview",
+        content:
+          "An Apache Airflow batch ETL pipeline that ingests live cryptocurrency market data from the CoinGecko API on a schedule and lands it in a PostgreSQL warehouse organized in the medallion architecture (raw, staging, and marts layers). It is structured the way a real data engineering team builds batch pipelines — with incremental loading, idempotent writes, data-quality gates, and unit-tested business logic.",
+      },
+      {
+        label: "pipeline_(dag)",
+        content:
+          "A single DAG runs five sequential tasks: extract (pull market data from the API), load_raw (land the payload as-is in the raw layer, partitioned by execution date), transform_stage (clean, type, and deduplicate records into the staging layer), data_quality_check (validate the data), and load_marts (publish the final analytics table). Business logic lives in importable, testable Python modules rather than inline in the DAG, and the data source is abstracted behind an interface so it can be swapped.",
+      },
+      {
+        label: "medallion_layers",
+        content:
+          "Raw stores the untouched API payload with ingestion metadata. Staging holds cleaned, typed, deduplicated records. Marts contains the analytics-ready snapshot table (per-coin price, market cap, rank, volume, and 24h change) keyed on coin and execution date.",
+      },
+      {
+        label: "incremental_&_idempotent",
+        content:
+          "The pipeline tracks a high-water mark so each run only processes new data rather than doing a full refresh, and writes use UPSERTs keyed on (coin_id, execution_date) so re-running a DAG run produces no duplicates and is safely restartable.",
+      },
+      {
+        label: "data_quality_gate",
+        content:
+          "Between staging and marts, a dedicated quality task validates the data — checking for the expected schema, non-null and positive prices, non-negative market caps, sane row counts, and data freshness. If any check fails, the DAG fails and the marts layer is not updated, so bad data never reaches the analytics table.",
+      },
+      {
+        label: "reliability_&_testing",
+        content:
+          "Tasks have retries with backoff and a failure alert hook. The transform and data-quality functions are covered by unit tests (pytest) that run independently of Airflow, verifying parsing, deduplication, incremental filtering, and every quality rule.",
+      },
+      {
+        label: "tech",
+        content:
+          "Apache Airflow (LocalExecutor), Python, pandas, PostgreSQL, Docker Compose. Config and connections via environment variables.",
+      },
+      {
+        label: "note",
+        content:
+          "Built and verified locally with Docker Compose; live market data was successfully loaded through all three layers and all unit tests pass.",
+      },
+    ],
+  },
 ];
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
