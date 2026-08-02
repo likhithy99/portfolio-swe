@@ -20,6 +20,7 @@ type Project = {
   status: "completed" | "in-progress";
   tags: string[];
   github: string | null;
+  liveUrl?: string | null;
   screenshots: string[];
   screenshotLabels?: string[];
   modalPath: string;
@@ -466,6 +467,66 @@ const projects: Project[] = [
     ],
   },
   {
+    id: "09",
+    layer: "Data Science / ML",
+    title: "TalentPulse — People Analytics Platform",
+    shortDescription:
+      "An end-to-end employee-attrition prediction platform with a live interactive dashboard — calibrated risk scoring, per-employee SHAP explanations, and a what-if retention simulator.",
+    status: "completed",
+    tags: [
+      "Python",
+      "XGBoost",
+      "SHAP",
+      "Streamlit",
+      "Machine Learning",
+      "Model Calibration",
+      "Explainable AI",
+      "Plotly",
+      "pandas",
+    ],
+    github: "https://github.com/likhithy99/talent-pulse",
+    liveUrl: "https://talent-pulse-01.streamlit.app",
+    screenshots: [],
+    modalPath: "~/projects/talent-pulse",
+    detail: [
+      {
+        label: "overview",
+        content:
+          "TalentPulse is an end-to-end people-analytics platform that predicts which employees are at risk of leaving, explains why for each individual, and lets HR simulate retention interventions — all in a live interactive dashboard. Built on the real IBM HR Analytics dataset (1,470 employees).",
+      },
+      {
+        label: "machine_learning",
+        content:
+          "An XGBoost classifier trained with class weighting for the imbalanced attrition target, with sigmoid-calibrated probabilities so risk scores are trustworthy. Evaluated with the right metrics for imbalanced classification — ROC-AUC, PR-AUC, Brier score (improved from 0.137 to 0.111 after calibration), and recall-at-fixed-precision as the operating metric. Two model artifacts are used deliberately: a split model for unbiased evaluation and a full-data model for scoring the current workforce, avoiding in-sample-optimistic scores.",
+      },
+      {
+        label: "explainability_(shap)",
+        content:
+          'Global SHAP analysis surfaces organization-wide attrition drivers, and per-employee SHAP explanations show exactly why each person is flagged in human-readable terms (e.g. "works overtime", "low monthly income", "no recent promotion"), making the output actionable for HR.',
+      },
+      {
+        label: "interactive_dashboard_(live)",
+        content:
+          "A Streamlit dashboard with five views: an org overview with KPIs, a filterable employee risk table, a per-employee SHAP drill-down, a what-if simulator (adjust salary, overtime, promotion timing and watch predicted risk update live — e.g. a raise dropping risk from 64% to 49%), and a retention-priorities view ranking employees by risk times business cost.",
+      },
+      {
+        label: "business_framing",
+        content:
+          "Attrition is quantified in dollars — replacement cost scaled by seniority — and employees are ranked by risk times value, so HR sees not just who might leave but who is most worth retaining first.",
+      },
+      {
+        label: "engineering",
+        content:
+          "Clean separation between the ML pipeline and app layer, the same feature pipeline at training and inference (no train/serve skew), cached model loading, graceful handling of missing artifacts, and tests covering the pipeline and dashboard. Built collaboratively by two contributors using a feature-branch and pull-request workflow, and deployed on Streamlit Cloud.",
+      },
+      {
+        label: "tech",
+        content:
+          "Python, XGBoost, scikit-learn, SHAP, Streamlit, Plotly, pandas. Deployed on Streamlit Cloud.",
+      },
+    ],
+  },
+  {
     id: "10",
     layer: "Data Science / NLP",
     title: "NLP Review Classification — Baseline vs Transformer",
@@ -533,6 +594,25 @@ function GitHubIcon({ size = 14 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
+    </svg>
+  );
+}
+
+function ExternalLinkIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
     </svg>
   );
 }
@@ -892,33 +972,57 @@ function ProjectModal({
             <TagList tags={project.tags} />
           </div>
 
-          {/* GitHub link */}
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-mono text-sm px-4 py-2 rounded-lg transition-all duration-200"
-              style={{
-                border: "1px solid rgba(0, 212, 170, 0.3)",
-                color: "var(--accent)",
-                background: "rgba(0, 212, 170, 0.05)",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = "rgba(0, 212, 170, 0.12)";
-                el.style.borderColor = "rgba(0, 212, 170, 0.5)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = "rgba(0, 212, 170, 0.05)";
-                el.style.borderColor = "rgba(0, 212, 170, 0.3)";
-              }}
-            >
-              <GitHubIcon size={15} />
-              <span>View on GitHub</span>
-            </a>
-          )}
+          {/* Links: Live Demo (prominent) + GitHub */}
+          <div className="flex flex-wrap items-center gap-3">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-mono text-sm px-4 py-2 rounded-lg transition-all duration-200"
+                style={{
+                  border: "1px solid var(--accent)",
+                  color: "var(--bg-primary)",
+                  background: "var(--accent)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.opacity = "0.85";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.opacity = "1";
+                }}
+              >
+                <ExternalLinkIcon size={15} />
+                <span>Live Demo</span>
+              </a>
+            )}
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-mono text-sm px-4 py-2 rounded-lg transition-all duration-200"
+                style={{
+                  border: "1px solid rgba(0, 212, 170, 0.3)",
+                  color: "var(--accent)",
+                  background: "rgba(0, 212, 170, 0.05)",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.background = "rgba(0, 212, 170, 0.12)";
+                  el.style.borderColor = "rgba(0, 212, 170, 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.background = "rgba(0, 212, 170, 0.05)";
+                  el.style.borderColor = "rgba(0, 212, 170, 0.3)";
+                }}
+              >
+                <GitHubIcon size={15} />
+                <span>View on GitHub</span>
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -1025,34 +1129,55 @@ export default function Projects() {
                   <TagList tags={project.tags} />
                 </div>
 
-                {/* Card footer: GitHub link (if available) + open hint */}
+                {/* Card footer: Live Demo + GitHub links (if available) + open hint */}
                 <div
                   className="flex items-center justify-between pt-3"
                   style={{ borderTop: "1px solid var(--border-subtle)" }}
                 >
-                  {project.github ? (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 font-mono text-xs transition-colors duration-150"
-                      style={{ color: "var(--text-muted)" }}
-                      onClick={(e) => e.stopPropagation()}
-                      onMouseEnter={(e) =>
-                        ((e.currentTarget as HTMLElement).style.color =
-                          "var(--accent)")
-                      }
-                      onMouseLeave={(e) =>
-                        ((e.currentTarget as HTMLElement).style.color =
-                          "var(--text-muted)")
-                      }
-                    >
-                      <GitHubIcon size={13} />
-                      <span>GitHub</span>
-                    </a>
-                  ) : (
-                    <div />
-                  )}
+                  <div className="flex items-center gap-4">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 font-mono text-xs transition-colors duration-150"
+                        style={{ color: "var(--accent)" }}
+                        onClick={(e) => e.stopPropagation()}
+                        onMouseEnter={(e) =>
+                          ((e.currentTarget as HTMLElement).style.opacity =
+                            "0.75")
+                        }
+                        onMouseLeave={(e) =>
+                          ((e.currentTarget as HTMLElement).style.opacity =
+                            "1")
+                        }
+                      >
+                        <ExternalLinkIcon size={13} />
+                        <span>Live Demo</span>
+                      </a>
+                    )}
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 font-mono text-xs transition-colors duration-150"
+                        style={{ color: "var(--text-muted)" }}
+                        onClick={(e) => e.stopPropagation()}
+                        onMouseEnter={(e) =>
+                          ((e.currentTarget as HTMLElement).style.color =
+                            "var(--accent)")
+                        }
+                        onMouseLeave={(e) =>
+                          ((e.currentTarget as HTMLElement).style.color =
+                            "var(--text-muted)")
+                        }
+                      >
+                        <GitHubIcon size={13} />
+                        <span>GitHub</span>
+                      </a>
+                    )}
+                  </div>
                   <span
                     className="font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     style={{ color: "var(--accent)" }}
