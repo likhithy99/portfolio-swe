@@ -465,6 +465,66 @@ const projects: Project[] = [
       },
     ],
   },
+  {
+    id: "10",
+    layer: "Data Science / NLP",
+    title: "NLP Review Classification — Baseline vs Transformer",
+    shortDescription:
+      "An end-to-end NLP project classifying customer reviews by sentiment and category, comparing a TF-IDF + LightGBM baseline against a fine-tuned DistilBERT transformer with a rigorous accuracy-vs-cost analysis, a serving API, and a business-insights layer.",
+    status: "completed",
+    tags: [
+      "Python",
+      "NLP",
+      "Machine Learning",
+      "Deep Learning",
+      "DistilBERT",
+      "scikit-learn",
+      "LightGBM",
+      "FastAPI",
+      "SQL",
+      "SHAP",
+    ],
+    github: "https://github.com/likhithy99/nlp-review-insights",
+    screenshots: [],
+    modalPath: "~/projects/nlp-review-insights",
+    detail: [
+      {
+        label: "overview",
+        content:
+          "An end-to-end NLP project that classifies customer reviews by sentiment and product category, built as real data science: exploratory analysis, preprocessing, modeling, honest evaluation, error analysis, a serving API, and a business-insights layer. Data is stored in SQLite and accessed via SQL. The centerpiece is a rigorous head-to-head comparison of a lightweight classical model against a fine-tuned transformer.",
+      },
+      {
+        label: "models_&_comparison",
+        content:
+          "A classical baseline (TF-IDF features + LightGBM) and a fine-tuned DistilBERT transformer, trained and evaluated on the exact same held-out split for a fair, leakage-free comparison. The measured result: the transformer scored a macro-F1 of 0.899 versus the baseline's 0.889 — a gain of just 0.010 — while running roughly 20x slower per prediction and being roughly 79x larger on disk. On the reviews where the two disagreed, the transformer won every one, fixing exactly the sarcasm and negation cases the baseline missed. The conclusion: the lightweight baseline is the better production choice unless a strict accuracy requirement justifies the transformer's cost — the accuracy-versus-cost tradeoff a real deployment decision hinges on.",
+      },
+      {
+        label: "evaluation_&_error_analysis",
+        content:
+          "Beyond aggregate scores, the project quantifies how often sarcasm, negation, and mixed sentiment appear in misclassifications versus the overall set, inspects the top confusion pairs, and samples individual misclassified reviews with explanations — surfacing why the model fails, not just how often.",
+      },
+      {
+        label: "serving_api",
+        content:
+          "A FastAPI service exposes the model with /predict, /predict/batch, /health, and Prometheus /metrics endpoints, Pydantic validation, and a slim Docker image that deliberately excludes heavy ML libraries not needed for serving. The same preprocessing is used at training and inference to prevent train/serve skew.",
+      },
+      {
+        label: "business_insights",
+        content:
+          "An analytics layer aggregates predictions into ranked findings — volume-weighted negativity by category (surfacing where the most unhappy customers are, not just the highest rate), sentiment trends tested with a linear-regression significance test and a Bonferroni correction for multiple comparisons (so a single noisy result isn't over-claimed), and keyword-based theme extraction hinting at what drives negative sentiment per category.",
+      },
+      {
+        label: "testing",
+        content:
+          "55 unit tests covering preprocessing, the model comparison logic, the serving API, and the insights aggregations.",
+      },
+      {
+        label: "tech",
+        content:
+          "Python, scikit-learn, LightGBM, HuggingFace Transformers, PyTorch (DistilBERT), FastAPI, SQLite/SQL, pandas, matplotlib.",
+      },
+    ],
+  },
 ];
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
