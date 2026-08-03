@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
+import { Chakra_Petch } from "next/font/google";
 import "./globals.css";
+import CursorTracker from "./components/CursorTracker";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,6 +15,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+});
+
+const chakraPetch = Chakra_Petch({
+  variable: "--font-chakra",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -35,9 +43,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${chakraPetch.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col antialiased">{children}</body>
+      <body className="min-h-full flex flex-col antialiased">
+        <CursorTracker />
+        {children}
+      </body>
     </html>
   );
 }

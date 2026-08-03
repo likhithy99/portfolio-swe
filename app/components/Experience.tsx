@@ -132,7 +132,7 @@ export default function Experience() {
                 />
 
                 <div
-                  className="p-7 rounded-xl card-hover"
+                  className="hud-corners p-7 rounded-xl card-hover"
                   style={{
                     border: "1px solid var(--border-subtle)",
                     background: "var(--bg-secondary)",
@@ -151,8 +151,11 @@ export default function Experience() {
                         </span>
                         <CompanyLogo src={exp.logo} alt={exp.company} />
                         <h3
-                          className="font-mono font-semibold text-lg"
-                          style={{ color: "var(--text-primary)" }}
+                          className="font-semibold text-lg"
+                          style={{
+                            color: "var(--text-primary)",
+                            fontFamily: "var(--font-chakra)",
+                          }}
                         >
                           {exp.company}
                         </h3>
@@ -190,9 +193,9 @@ export default function Experience() {
                         key={tag}
                         className="font-mono text-xs px-2.5 py-1 rounded"
                         style={{
-                          background: "rgba(0, 212, 170, 0.08)",
+                          background: "rgba(var(--accent-rgb), 0.08)",
                           color: "var(--accent)",
-                          border: "1px solid rgba(0, 212, 170, 0.15)",
+                          border: "1px solid rgba(var(--accent-rgb), 0.15)",
                         }}
                       >
                         {tag}

@@ -56,8 +56,8 @@ export default function Contact() {
           {/* Left: Text */}
           <div>
             <h2
-              className="font-mono font-bold text-3xl mb-4 leading-snug"
-              style={{ color: "var(--text-primary)" }}
+              className="font-bold text-3xl mb-4 leading-snug"
+              style={{ color: "var(--text-primary)", fontFamily: "var(--font-chakra)" }}
             >
               Let&apos;s build something{" "}
               <span style={{ color: "var(--accent)" }}>reliable</span>
@@ -75,7 +75,7 @@ export default function Contact() {
             <div className="space-y-4">
               {/* Email */}
               <div
-                className="flex items-center justify-between p-5 rounded-xl card-hover cursor-pointer"
+                className="hud-corners flex items-center justify-between p-5 rounded-xl card-hover cursor-pointer"
                 style={{
                   border: "1px solid var(--border)",
                   background: "var(--bg-card)",
@@ -86,7 +86,7 @@ export default function Contact() {
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center font-mono text-sm"
                     style={{
-                      background: "rgba(0, 212, 170, 0.12)",
+                      background: "rgba(var(--accent-rgb), 0.12)",
                       color: "var(--accent)",
                     }}
                   >
@@ -120,7 +120,7 @@ export default function Contact() {
                 href="https://linkedin.com/in/likhithy99"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-5 rounded-xl card-hover"
+                className="hud-corners flex items-center justify-between p-5 rounded-xl card-hover"
                 style={{
                   border: "1px solid var(--border)",
                   background: "var(--bg-card)",
@@ -130,7 +130,7 @@ export default function Contact() {
                 <div className="flex items-center gap-4">
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center"
-                    style={{ background: "rgba(0, 212, 170, 0.12)" }}
+                    style={{ background: "rgba(var(--accent-rgb), 0.12)" }}
                   >
                     <svg
                       width="16"
@@ -171,7 +171,7 @@ export default function Contact() {
                 href="https://github.com/likhithy99"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-5 rounded-xl card-hover"
+                className="hud-corners flex items-center justify-between p-5 rounded-xl card-hover"
                 style={{
                   border: "1px solid var(--border)",
                   background: "var(--bg-card)",
@@ -181,7 +181,7 @@ export default function Contact() {
                 <div className="flex items-center gap-4">
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center"
-                    style={{ background: "rgba(0, 212, 170, 0.12)" }}
+                    style={{ background: "rgba(var(--accent-rgb), 0.12)" }}
                   >
                     <svg
                       width="16"
@@ -216,7 +216,7 @@ export default function Contact() {
                 href="https://drive.google.com/file/d/12JWA7mUdDsblbMG_6XZqPGgFpKu1TWn_/view?usp=drive_link"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-5 rounded-xl card-hover"
+                className="hud-corners flex items-center justify-between p-5 rounded-xl card-hover"
                 style={{
                   border: "1px solid var(--border)",
                   background: "var(--bg-card)",
@@ -226,7 +226,7 @@ export default function Contact() {
                 <div className="flex items-center gap-4">
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center"
-                    style={{ background: "rgba(0, 212, 170, 0.12)" }}
+                    style={{ background: "rgba(var(--accent-rgb), 0.12)" }}
                   >
                     <svg
                       width="16"
@@ -268,7 +268,7 @@ export default function Contact() {
 
           {/* Right: Terminal status */}
           <div
-            className="rounded-xl overflow-hidden"
+            className="hud-corners rounded-xl overflow-hidden"
             style={{
               border: "1px solid var(--border)",
               background: "var(--bg-card)",

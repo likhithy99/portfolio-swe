@@ -27,10 +27,12 @@ export default function Nav() {
     <nav
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(15, 17, 23, 0.92)" : "transparent",
+        background: scrolled
+          ? "rgba(var(--bg-primary-rgb), 0.92)"
+          : "transparent",
         backdropFilter: scrolled ? "blur(12px)" : "none",
         borderBottom: scrolled
-          ? "1px solid rgba(0, 212, 170, 0.1)"
+          ? "1px solid rgba(var(--accent-rgb), 0.1)"
           : "none",
       }}
     >
@@ -67,7 +69,7 @@ export default function Nav() {
           {/* Divider */}
           <div
             className="h-4 w-px"
-            style={{ background: "rgba(0, 212, 170, 0.2)" }}
+            style={{ background: "rgba(var(--accent-rgb), 0.2)" }}
           />
 
           {/* Resume button */}
@@ -77,18 +79,18 @@ export default function Nav() {
             rel="noopener noreferrer"
             className="font-mono text-xs px-3.5 py-2 rounded transition-all duration-200"
             style={{
-              border: "1px solid rgba(0, 212, 170, 0.4)",
+              border: "1px solid rgba(var(--accent-rgb), 0.4)",
               color: "var(--accent)",
             }}
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLElement;
-              el.style.background = "rgba(0, 212, 170, 0.1)";
-              el.style.borderColor = "rgba(0, 212, 170, 0.65)";
+              el.style.background = "rgba(var(--accent-rgb), 0.1)";
+              el.style.borderColor = "rgba(var(--accent-rgb), 0.65)";
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLElement;
               el.style.background = "transparent";
-              el.style.borderColor = "rgba(0, 212, 170, 0.4)";
+              el.style.borderColor = "rgba(var(--accent-rgb), 0.4)";
             }}
           >
             $ resume
@@ -134,7 +136,7 @@ export default function Nav() {
         <div
           className="md:hidden px-6 pb-6 pt-2"
           style={{
-            background: "rgba(15, 17, 23, 0.98)",
+            background: "rgba(var(--bg-primary-rgb), 0.98)",
             borderBottom: "1px solid var(--border)",
           }}
         >
@@ -167,7 +169,7 @@ export default function Nav() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-mono text-sm px-4 py-2 rounded transition-all duration-200"
                 style={{
-                  border: "1px solid rgba(0, 212, 170, 0.4)",
+                  border: "1px solid rgba(var(--accent-rgb), 0.4)",
                   color: "var(--accent)",
                 }}
                 onClick={() => setMenuOpen(false)}

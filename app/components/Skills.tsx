@@ -2,78 +2,64 @@ const skillGroups = [
   {
     label: "Cloud Platforms",
     prefix: "cloud",
-    skills: [
-      { name: "AWS", level: 90 },
-      { name: "GCP", level: 72 },
-    ],
+    skills: ["AWS", "GCP"],
   },
   {
     label: "DevOps & CI/CD",
     prefix: "cicd",
     skills: [
-      { name: "GitHub Actions", level: 88 },
-      { name: "CI/CD Pipelines", level: 85 },
-      { name: "Docker", level: 90 },
-      { name: "Kubernetes", level: 80 },
-      { name: "Terraform", level: 82 },
-      { name: "Linux", level: 87 },
+      "GitHub Actions",
+      "CI/CD Pipelines",
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "Linux",
     ],
   },
   {
     label: "Observability",
     prefix: "obs",
     skills: [
-      { name: "Prometheus", level: 78 },
-      { name: "Grafana", level: 75 },
-      { name: "Monitoring & Alerting", level: 80 },
-      { name: "On-call / Incident Response", level: 78 },
+      "Prometheus",
+      "Grafana",
+      "Monitoring & Alerting",
+      "On-call / Incident Response",
     ],
   },
   {
     label: "Languages",
     prefix: "lang",
-    skills: [
-      { name: "Python", level: 88 },
-      { name: "Java", level: 78 },
-      { name: "Go", level: 65 },
-      { name: "TypeScript", level: 72 },
-      { name: "SQL", level: 80 },
-    ],
+    skills: ["Python", "Java", "Go", "TypeScript", "SQL"],
   },
   {
     label: "Backend & Data",
     prefix: "backend",
-    skills: [
-      { name: "REST APIs", level: 85 },
-      { name: "PostgreSQL", level: 78 },
-      { name: "DynamoDB", level: 72 },
-      { name: "Microservices", level: 80 },
-    ],
+    skills: ["REST APIs", "PostgreSQL", "DynamoDB", "Microservices"],
   },
   {
     label: "Machine Learning & Data Science",
     prefix: "ml",
     skills: [
-      { name: "Machine Learning", level: 82 },
-      { name: "scikit-learn", level: 83 },
-      { name: "XGBoost / LightGBM", level: 82 },
-      { name: "Model Evaluation & Calibration", level: 80 },
-      { name: "SHAP / Explainable AI", level: 78 },
-      { name: "Feature Engineering", level: 80 },
-      { name: "pandas / NumPy", level: 85 },
+      "Machine Learning",
+      "scikit-learn",
+      "XGBoost / LightGBM",
+      "Model Evaluation & Calibration",
+      "SHAP / Explainable AI",
+      "Feature Engineering",
+      "pandas / NumPy",
     ],
   },
   {
     label: "NLP & Deep Learning",
     prefix: "nlp",
     skills: [
-      { name: "NLP", level: 75 },
-      { name: "Deep Learning", level: 70 },
-      { name: "Transformers (DistilBERT)", level: 70 },
-      { name: "PyTorch", level: 68 },
-      { name: "Hugging Face", level: 70 },
-      { name: "Model Serving (FastAPI)", level: 82 },
-      { name: "Streamlit", level: 80 },
+      "NLP",
+      "Deep Learning",
+      "Transformers (DistilBERT)",
+      "PyTorch",
+      "Hugging Face",
+      "Model Serving (FastAPI)",
+      "Streamlit",
     ],
   },
 ];
@@ -122,9 +108,9 @@ export default function Skills() {
                 key={cert}
                 className="font-mono text-xs px-3 py-1.5 rounded"
                 style={{
-                  border: "1px solid rgba(0, 212, 170, 0.3)",
+                  border: "1px solid rgba(var(--accent-rgb), 0.3)",
                   color: "var(--text-primary)",
-                  background: "rgba(0, 212, 170, 0.06)",
+                  background: "rgba(var(--accent-rgb), 0.06)",
                 }}
               >
                 🏅 {cert}
@@ -138,55 +124,31 @@ export default function Skills() {
           {skillGroups.map((group) => (
             <div
               key={group.prefix}
-              className="p-6 rounded-xl card-hover"
+              className="hud-corners p-6 rounded-xl card-hover"
               style={{
                 border: "1px solid var(--border-subtle)",
                 background: "var(--bg-secondary)",
               }}
             >
               <div
-                className="font-mono text-xs mb-5"
+                className="font-mono text-xs mb-4"
                 style={{ color: "var(--accent)" }}
               >
                 // {group.label}
               </div>
 
-              <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
                 {group.skills.map((skill) => (
-                  <div key={skill.name}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span
-                        className="text-sm"
-                        style={{ color: "var(--text-secondary)" }}
-                      >
-                        {skill.name}
-                      </span>
-                      <span
-                        className="font-mono text-xs"
-                        style={{ color: "var(--text-muted)" }}
-                      >
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div
-                      className="h-1 rounded-full overflow-hidden"
-                      style={{ background: "rgba(255,255,255,0.06)" }}
-                    >
-                      <div
-                        className="h-full rounded-full"
-                        style={{
-                          width: `${skill.level}%`,
-                          background:
-                            skill.level >= 80
-                              ? "var(--accent)"
-                              : skill.level >= 65
-                              ? "rgba(0, 212, 170, 0.7)"
-                              : "rgba(0, 212, 170, 0.45)",
-                          transition: "width 1s ease",
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <span
+                    key={skill}
+                    className="text-sm px-3 py-1.5 rounded-md"
+                    style={{
+                      color: "var(--text-secondary)",
+                      border: "1px solid var(--border-subtle)",
+                    }}
+                  >
+                    {skill}
+                  </span>
                 ))}
               </div>
             </div>

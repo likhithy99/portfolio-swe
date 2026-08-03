@@ -56,8 +56,8 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0, 212, 170, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 212, 170, 0.03) 1px, transparent 1px)
+            linear-gradient(rgba(var(--accent-rgb), 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(var(--accent-rgb), 0.03) 1px, transparent 1px)
           `,
           backgroundSize: "48px 48px",
         }}
@@ -67,7 +67,7 @@ export default function Hero() {
       <div
         className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(0, 212, 170, 0.06) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(var(--accent-rgb), 0.06) 0%, transparent 70%)",
         }}
       />
 
@@ -88,10 +88,12 @@ export default function Hero() {
             </div>
 
             <h1
-              className="font-mono font-bold mb-4 leading-tight opacity-0 animate-fade-in-up delay-200"
+              className="font-bold mb-4 leading-tight opacity-0 animate-fade-in-up delay-200"
               style={{
                 fontSize: "clamp(2.5rem, 5vw, 4rem)",
                 color: "var(--text-primary)",
+                fontFamily: "var(--font-chakra)",
+                letterSpacing: "0.01em",
               }}
             >
               Likhith{" "}
@@ -123,7 +125,7 @@ export default function Hero() {
                 className="font-mono text-sm px-6 py-3 rounded transition-all duration-200"
                 style={{
                   background: "var(--accent)",
-                  color: "#0f1117",
+                  color: "var(--bg-primary)",
                   fontWeight: 600,
                 }}
                 onMouseEnter={(e) => {
@@ -139,11 +141,11 @@ export default function Hero() {
                 href="#contact"
                 className="font-mono text-sm px-6 py-3 rounded transition-all duration-200"
                 style={{
-                  border: "1px solid rgba(0, 212, 170, 0.35)",
+                  border: "1px solid rgba(var(--accent-rgb), 0.35)",
                   color: "var(--accent)",
                 }}
                 onMouseEnter={(e) => {
-                  (e.target as HTMLElement).style.background = "rgba(0, 212, 170, 0.08)";
+                  (e.target as HTMLElement).style.background = "rgba(var(--accent-rgb), 0.08)";
                 }}
                 onMouseLeave={(e) => {
                   (e.target as HTMLElement).style.background = "transparent";
@@ -157,11 +159,11 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="font-mono text-sm px-6 py-3 rounded transition-all duration-200"
                 style={{
-                  border: "1px solid rgba(0, 212, 170, 0.35)",
+                  border: "1px solid rgba(var(--accent-rgb), 0.35)",
                   color: "var(--accent)",
                 }}
                 onMouseEnter={(e) => {
-                  (e.target as HTMLElement).style.background = "rgba(0, 212, 170, 0.08)";
+                  (e.target as HTMLElement).style.background = "rgba(var(--accent-rgb), 0.08)";
                 }}
                 onMouseLeave={(e) => {
                   (e.target as HTMLElement).style.background = "transparent";
@@ -174,11 +176,12 @@ export default function Hero() {
 
           {/* Right: Terminal block */}
           <div
-            className="opacity-0 animate-fade-in-up delay-400 rounded-xl overflow-hidden"
+            className="hud-corners opacity-0 animate-fade-in-up delay-400 rounded-xl overflow-hidden"
             style={{
               border: "1px solid var(--border)",
               background: "var(--bg-secondary)",
               fontFamily: "var(--font-jetbrains), monospace",
+              boxShadow: "0 0 40px rgba(var(--accent-rgb), 0.05)",
             }}
           >
             {/* Terminal chrome */}

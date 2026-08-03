@@ -627,9 +627,9 @@ function TagList({ tags }: { tags: string[] }) {
           key={tag}
           className="font-mono text-xs px-2.5 py-1 rounded"
           style={{
-            background: "rgba(0, 212, 170, 0.07)",
+            background: "rgba(var(--accent-rgb), 0.07)",
             color: "var(--accent)",
-            border: "1px solid rgba(0, 212, 170, 0.12)",
+            border: "1px solid rgba(var(--accent-rgb), 0.12)",
           }}
         >
           {tag}
@@ -672,9 +672,9 @@ function LatencyChart({ bars }: { bars: LatencyBar[] }) {
                   width: "44px",
                   height: `${barH}px`,
                   background:
-                    "linear-gradient(to top, rgba(0,212,170,0.85), rgba(0,212,170,0.25))",
+                    "linear-gradient(to top, rgba(var(--accent-rgb),0.85), rgba(var(--accent-rgb),0.25))",
                   borderRadius: "3px 3px 0 0",
-                  border: "1px solid rgba(0,212,170,0.35)",
+                  border: "1px solid rgba(var(--accent-rgb),0.35)",
                   borderBottom: "none",
                 }}
               />
@@ -690,7 +690,7 @@ function LatencyChart({ bars }: { bars: LatencyBar[] }) {
       </div>
       <div
         className="mt-1 h-px"
-        style={{ background: "rgba(0,212,170,0.2)" }}
+        style={{ background: "rgba(var(--accent-rgb),0.2)" }}
       />
       <p
         className="mt-2 font-mono text-xs text-center"
@@ -824,8 +824,8 @@ function ProjectModal({
             </span>
           </div>
           <h2
-            className="font-mono font-semibold text-lg leading-snug mb-6"
-            style={{ color: "var(--text-primary)" }}
+            className="font-semibold text-lg leading-snug mb-6"
+            style={{ color: "var(--text-primary)", fontFamily: "var(--font-chakra)" }}
           >
             {project.title}
           </h2>
@@ -845,7 +845,7 @@ function ProjectModal({
                   style={{
                     maxHeight: "380px",
                     objectFit: "contain",
-                    background: "#0d1117",
+                    background: "var(--bg-primary)",
                   }}
                 />
               </div>
@@ -984,6 +984,8 @@ function ProjectModal({
                   border: "1px solid var(--accent)",
                   color: "var(--bg-primary)",
                   background: "var(--accent)",
+                  boxShadow: "0 0 20px rgba(var(--accent-rgb), 0.35)",
+                  fontWeight: 600,
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.opacity = "0.85";
@@ -1003,19 +1005,19 @@ function ProjectModal({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-mono text-sm px-4 py-2 rounded-lg transition-all duration-200"
                 style={{
-                  border: "1px solid rgba(0, 212, 170, 0.3)",
+                  border: "1px solid rgba(var(--accent-rgb), 0.3)",
                   color: "var(--accent)",
-                  background: "rgba(0, 212, 170, 0.05)",
+                  background: "rgba(var(--accent-rgb), 0.05)",
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.background = "rgba(0, 212, 170, 0.12)";
-                  el.style.borderColor = "rgba(0, 212, 170, 0.5)";
+                  el.style.background = "rgba(var(--accent-rgb), 0.12)";
+                  el.style.borderColor = "rgba(var(--accent-rgb), 0.5)";
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.background = "rgba(0, 212, 170, 0.05)";
-                  el.style.borderColor = "rgba(0, 212, 170, 0.3)";
+                  el.style.background = "rgba(var(--accent-rgb), 0.05)";
+                  el.style.borderColor = "rgba(var(--accent-rgb), 0.3)";
                 }}
               >
                 <GitHubIcon size={15} />
@@ -1068,13 +1070,13 @@ export default function Projects() {
                 key={project.id}
                 role="button"
                 tabIndex={0}
-                className="p-6 rounded-xl card-hover flex flex-col cursor-pointer group"
+                className="hud-corners p-6 rounded-xl card-hover flex flex-col cursor-pointer group"
                 style={{
                   border: isCompleted
-                    ? "1px solid rgba(0, 212, 170, 0.3)"
+                    ? "1px solid rgba(var(--accent-rgb), 0.3)"
                     : "1px solid var(--border-subtle)",
                   background: isCompleted
-                    ? "rgba(0, 212, 170, 0.02)"
+                    ? "rgba(var(--accent-rgb), 0.02)"
                     : "var(--bg-card)",
                 }}
                 onClick={() => setActiveProject(project)}
@@ -1103,8 +1105,8 @@ export default function Projects() {
 
                 {/* Title */}
                 <h3
-                  className="font-mono font-semibold text-base mb-3 leading-snug"
-                  style={{ color: "var(--text-primary)" }}
+                  className="font-semibold text-base mb-3 leading-snug"
+                  style={{ color: "var(--text-primary)", fontFamily: "var(--font-chakra)" }}
                 >
                   {project.title}
                 </h3>

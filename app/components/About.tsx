@@ -31,8 +31,8 @@ export default function About() {
           {/* Text */}
           <div>
             <h2
-              className="font-mono font-bold text-3xl mb-6 leading-snug"
-              style={{ color: "var(--text-primary)" }}
+              className="font-bold text-3xl mb-6 leading-snug"
+              style={{ color: "var(--text-primary)", fontFamily: "var(--font-chakra)" }}
             >
               Building reliable systems,{" "}
               <span style={{ color: "var(--accent)" }}>at scale</span>
@@ -122,15 +122,15 @@ export default function About() {
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className="p-6 rounded-lg card-hover"
+                className="hud-corners p-6 rounded-lg card-hover"
                 style={{
                   border: "1px solid var(--border-subtle)",
                   background: "var(--bg-card)",
                 }}
               >
                 <div
-                  className="font-mono font-bold text-3xl mb-2 accent-glow"
-                  style={{ color: "var(--accent)" }}
+                  className="font-bold text-3xl mb-2 accent-glow"
+                  style={{ color: "var(--accent)", fontFamily: "var(--font-chakra)" }}
                 >
                   {stat.value}
                 </div>
@@ -171,9 +171,9 @@ export default function About() {
                     key={tag}
                     className="font-mono text-xs px-3 py-1 rounded-full"
                     style={{
-                      background: "rgba(0, 212, 170, 0.1)",
+                      background: "rgba(var(--accent-rgb), 0.1)",
                       color: "var(--accent)",
-                      border: "1px solid rgba(0, 212, 170, 0.2)",
+                      border: "1px solid rgba(var(--accent-rgb), 0.2)",
                     }}
                   >
                     {tag}
