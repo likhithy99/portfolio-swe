@@ -50,6 +50,32 @@ const skillGroups = [
       { name: "Microservices", level: 80 },
     ],
   },
+  {
+    label: "Machine Learning & Data Science",
+    prefix: "ml",
+    skills: [
+      { name: "Machine Learning", level: 82 },
+      { name: "scikit-learn", level: 83 },
+      { name: "XGBoost / LightGBM", level: 82 },
+      { name: "Model Evaluation & Calibration", level: 80 },
+      { name: "SHAP / Explainable AI", level: 78 },
+      { name: "Feature Engineering", level: 80 },
+      { name: "pandas / NumPy", level: 85 },
+    ],
+  },
+  {
+    label: "NLP & Deep Learning",
+    prefix: "nlp",
+    skills: [
+      { name: "NLP", level: 75 },
+      { name: "Deep Learning", level: 70 },
+      { name: "Transformers (DistilBERT)", level: 70 },
+      { name: "PyTorch", level: 68 },
+      { name: "Hugging Face", level: 70 },
+      { name: "Model Serving (FastAPI)", level: 82 },
+      { name: "Streamlit", level: 80 },
+    ],
+  },
 ];
 
 const certBadges = [
